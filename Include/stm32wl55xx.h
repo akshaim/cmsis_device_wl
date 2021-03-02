@@ -51,53 +51,7 @@
  * @brief stm32wl55xx Interrupt Number Definition, according to the selected device
  *        in @ref Library_configuration_section
  */
-#if defined(CORE_CM0PLUS)
-  /*!< Interrupt Number Definition for M0 */
-  typedef enum
-  {
-  /******  Cortex-M0 Processor Exceptions Numbers ****************************************************************/
-    NonMaskableInt_IRQn          = -14,    /*!< Non Maskable Interrupt                                            */
-    HardFault_IRQn               = -13,    /*!< Cortex-M0+ Hard Fault Interrupt                                   */
-    SVC_IRQn                     = -5,     /*!< Cortex-M0+ SV Call Interrupt                                      */
-    PendSV_IRQn                  = -2,     /*!< Cortex-M0+ Pend SV Interrupt                                      */
-    SysTick_IRQn                 = -1,     /*!< Cortex-M0+ System Tick Interrupt                                  */
 
-  /*************  STM32WLxx specific Interrupt Numbers on M0 core ************************************************/
-    TZIC_ILA_IRQn                = 0,      /*!< Security Interrupt controller illegal access interrupt            */
-    PVD_PVM_IRQn                 = 1,      /*!< PVD and PVM detector                                              */
-    RTC_LSECSS_IRQn              = 2,      /*!< RTC Wakeup + RTC Tamper and RTC TimeStamp + RTC Alarms (A & B) and*/
-                                           /*!< RTC SSRU Interrupts and LSECSS Interrupts                         */
-    RCC_FLASH_C1SEV_IRQn         = 3,      /*!< RCC Interrupt, FLASH interrupt and CPU1 SEV                       */
-    EXTI1_0_IRQn                 = 4,      /*!< EXTI Line 1:0 Interrupt                                           */
-    EXTI3_2_IRQn                 = 5,      /*!< EXTI Line 3:2 Interrupt                                           */
-    EXTI15_4_IRQn                = 6,      /*!< EXTI Line 15:4 interrupt                                          */
-    ADC_COMP_DAC_IRQn            = 7,      /*!< ADC, COMP1, COMP2, DAC interrupts                                 */
-    DMA1_Channel1_2_3_IRQn       = 8,      /*!< DMA1 Channels 1,2,3 Interrupt                                     */
-    DMA1_Channel4_5_6_7_IRQn     = 9,      /*!< DMA1 Channels 4,5,6,7 Interrupt                                   */
-    DMA2_DMAMUX1_OVR_IRQn        = 10,     /*!< DMA2 Channels[1..7] and DMAMUX1 Overrun Interrupt                 */
-    LPTIM1_IRQn                  = 11,     /*!< LPTIM1 Global Interrupt                                           */
-    LPTIM2_IRQn                  = 12,     /*!< LPTIM2 Global Interrupt                                           */
-    LPTIM3_IRQn                  = 13,     /*!< LPTIM3 Global Interrupt                                           */
-    TIM1_IRQn                    = 14,     /*!< TIM1 Global Interrupt                                             */
-    TIM2_IRQn                    = 15,     /*!< TIM2 Global Interrupt                                             */
-    TIM16_IRQn                   = 16,     /*!< TIM16 Global Interrupt                                            */
-    TIM17_IRQn                   = 17,     /*!< TIM17 Global Interrupt                                            */
-    IPCC_C2_RX_C2_TX_IRQn        = 18,     /*!< IPCC RX Occupied and TX Free Interrupt                            */
-    HSEM_IRQn                    = 19,     /*!< HSEM Interrupt                                                    */
-    RNG_IRQn                     = 20,     /*!< RNG Interrupt                                                     */
-    AES_PKA_IRQn                 = 21,     /*!< AES and PKA Interrupt                                             */
-    I2C1_IRQn                    = 22,     /*!< I2C1 Event and Error Interrupt                                    */
-    I2C2_IRQn                    = 23,     /*!< I2C2 Event and Error Interrupt                                    */
-    I2C3_IRQn                    = 24,     /*!< I2C3 Event and Error Interrupt                                    */
-    SPI1_IRQn                    = 25,     /*!< SPI1 Interrupt                                                    */
-    SPI2_IRQn                    = 26,     /*!< SPI2 Interrupt                                                    */
-    USART1_IRQn                  = 27,     /*!< USART1 Interrupt                                                  */
-    USART2_IRQn                  = 28,     /*!< USART2 Interrupt                                                  */
-    LPUART1_IRQn                 = 29,     /*!< LPUART1 Interrupt                                                 */
-    SUBGHZSPI_IRQn               = 30,     /*!< SUBGHZSPI Interrupt                                               */
-    SUBGHZ_Radio_IRQn            = 31,     /*!< SUBGHZ Radio Interrupt                                            */
-  } IRQn_Type;
-#else /* CORE_CM4 */
 /*!< Interrupt Number Definition for M4 */
 typedef enum
 {
@@ -179,25 +133,10 @@ typedef enum
 /**
   * @}
   */
-#endif
 
 /** @addtogroup Configuration_section_for_CMSIS
   * @{
   */
-#if defined(CORE_CM0PLUS)
-/**
-  * @brief Configuration of the Cortex-M0+ Processor and Core Peripherals
-  */
-#define __CM0PLUS_REV             1U /*!< Core Revision r0p1                            */
-#define __MPU_PRESENT             1U /*!< M0 provides an MPU                            */
-#define __VTOR_PRESENT            1U /*!< Vector Table Register supported               */
-#define __NVIC_PRIO_BITS          2U /*!< M0 core uses 2 Bits for the Priority Levels   */
-#define __Vendor_SysTickConfig    0U /*!< Set to 1 if different SysTick Config is used  */
-#define __FPU_PRESENT             0U /*!< FPU not present                               */
-
-#include "core_cm0plus.h"            /* Cortex-M0+ processor and core peripherals */
-
-#else /* CORE_CM4*/
 /**
   * @brief Configuration of the Cortex-M4 Processor and Core Peripherals
   */
@@ -210,7 +149,6 @@ typedef enum
 
 #include "core_cm4.h"                /* Cortex-M4 processor and core peripherals */
 
-#endif
 
 #include "system_stm32wlxx.h"
 #include <stdint.h>
@@ -342,8 +280,7 @@ typedef struct
   __IO uint32_t SHRR;        /*!< DAC Sample and Hold refresh time register,               Address offset: 0x4C */
 } DAC_TypeDef;
 
-#if defined(CORE_CM0PLUS)
-#else
+
 /**
   * @brief Debug MCU
   */
@@ -359,7 +296,6 @@ typedef struct
   __IO uint32_t APB2FZR;     /*!< Debug MCU CPU1 APB2 freeze register,         Address offset: 0x4C */
   __IO uint32_t C2APB2FZR;   /*!< Debug MCU CPU2 APB2 freeze register,         Address offset: 0x50 */
 } DBGMCU_TypeDef;
-#endif
 
 /**
   * @brief DMA Controller
@@ -933,9 +869,9 @@ typedef struct
 
 /*!< Memory, OTP and Option bytes */
 #define RSSLIB_PFUNC_BASE       (SYSTEM_FLASH_BASE + 0x00003A00UL) /*!< RSS area                                      */
-#define OTP_AREA_BASE           (SYSTEM_FLASH_BASE + 0x00007000UL) /*!< OTP area : 1kB (0x1FFF7000 – 0x1FFF73FF)      */
-#define ENGI_BYTES_BASE         (SYSTEM_FLASH_BASE + 0x00007400UL) /*!< Engi Bytes : 1kB (0x1FFF7400 – 0x1FFF77FF)    */
-#define OPTION_BYTES_BASE       (SYSTEM_FLASH_BASE + 0x00007800UL) /*!< Option Bytes : 2kB (0x1FFF7800 – 0x1FFF7FFF)  */
+#define OTP_AREA_BASE           (SYSTEM_FLASH_BASE + 0x00007000UL) /*!< OTP area : 1kB (0x1FFF7000 ï¿½ 0x1FFF73FF)      */
+#define ENGI_BYTES_BASE         (SYSTEM_FLASH_BASE + 0x00007400UL) /*!< Engi Bytes : 1kB (0x1FFF7400 ï¿½ 0x1FFF77FF)    */
+#define OPTION_BYTES_BASE       (SYSTEM_FLASH_BASE + 0x00007800UL) /*!< Option Bytes : 2kB (0x1FFF7800 ï¿½ 0x1FFF7FFF)  */
 
 /*!< Device Electronic Signature */
 #define PACKAGE_BASE            (ENGI_BYTES_BASE + 0x00000100UL) /*!< Package data register base address     */
@@ -943,10 +879,10 @@ typedef struct
 #define UID_BASE                (ENGI_BYTES_BASE + 0x00000190UL) /*!< Unique device ID register base address */
 #define FLASHSIZE_BASE          (ENGI_BYTES_BASE + 0x000001E0UL) /*!< Flash size data register base address  */
 
-#define SYSTEM_MEMORY_END_ADDR  (0x1FFF6FFFUL)   /*!< System Memory : 28KB (0x1FFF0000 – 0x1FFF6FFF)  */
-#define OTP_AREA_END_ADDR       (0x1FFF73FFUL)   /*!< OTP area : 1KB (0x1FFF7000 – 0x1FFF73FF)        */
-#define ENGI_BYTE_END_ADDR      (0x1FFF77FFUL)   /*!< Engi Bytes : 1kB (0x1FFF7400 – 0x1FFF77FF)      */
-#define OPTION_BYTE_END_ADDR    (0x1FFF7FFFUL)   /*!< Option Bytes : 2KB (0x1FFF7800 – 0x1FFF7FFF)    */
+#define SYSTEM_MEMORY_END_ADDR  (0x1FFF6FFFUL)   /*!< System Memory : 28KB (0x1FFF0000 ï¿½ 0x1FFF6FFF)  */
+#define OTP_AREA_END_ADDR       (0x1FFF73FFUL)   /*!< OTP area : 1KB (0x1FFF7000 ï¿½ 0x1FFF73FF)        */
+#define ENGI_BYTE_END_ADDR      (0x1FFF77FFUL)   /*!< Engi Bytes : 1kB (0x1FFF7400 ï¿½ 0x1FFF77FF)      */
+#define OPTION_BYTE_END_ADDR    (0x1FFF7FFFUL)   /*!< Option Bytes : 2KB (0x1FFF7800 ï¿½ 0x1FFF7FFF)    */
 
 /*!< Peripheral memory map */
 #define APB1PERIPH_BASE         PERIPH_BASE
@@ -1054,11 +990,9 @@ typedef struct
 /*!< APB3 peripherals */
 #define SUBGHZSPI_BASE          (APB3PERIPH_BASE + 0x00000000UL)
 
-#if defined(CORE_CM0PLUS)
-#else
+
 /*!< Peripherals available on CPU1 external PPB bus */
 #define DBGMCU_BASE             (0xE0042000UL)
-#endif
 
 /**
   * @}
@@ -1161,11 +1095,7 @@ typedef struct
 #define PWR                     ((PWR_TypeDef *) PWR_BASE)
 #define RNG                     ((RNG_TypeDef *) RNG_BASE)
 #define HSEM                    ((HSEM_TypeDef *) HSEM_BASE)
-#if defined(CORE_CM0PLUS)
-#define HSEM_COMMON             ((HSEM_Common_TypeDef *) (HSEM_BASE + 0x110U))
-#else
 #define HSEM_COMMON             ((HSEM_Common_TypeDef *) (HSEM_BASE + 0x100U))
-#endif
 #define PKA                     ((PKA_TypeDef *) PKA_BASE)
 #define FLASH                   ((FLASH_TypeDef *) FLASH_REG_BASE)
 #define GTZC_TZSC               ((GTZC_TZSC_TypeDef *) GTZC_TZSC_BASE)
@@ -1174,11 +1104,8 @@ typedef struct
 /* Peripherals available on APB3 bus */
 #define SUBGHZSPI               ((SPI_TypeDef *) SUBGHZSPI_BASE)
 
-#if defined(CORE_CM0PLUS)
-#else
 /* Peripherals available on CPU1 external PPB bus */
 #define DBGMCU                  ((DBGMCU_TypeDef *) DBGMCU_BASE)
-#endif
 
 /**
   * @}
@@ -5697,11 +5624,9 @@ typedef struct
 #define HSEM_CR_COREID           HSEM_CR_COREID_Msk                            /*!<CoreID of semaphores to be cleared. */
 #define HSEM_CR_COREID_CPU1      (0x4U << HSEM_CR_COREID_Pos)
 #define HSEM_CR_COREID_CPU2      (0x8U << HSEM_CR_COREID_Pos)
-#if defined(CORE_CM0PLUS)
-#define HSEM_CR_COREID_CURRENT   HSEM_CR_COREID_CPU2
-#else
+
 #define HSEM_CR_COREID_CURRENT   HSEM_CR_COREID_CPU1
-#endif
+
 #define HSEM_CR_KEY_Pos          (16U)
 #define HSEM_CR_KEY_Msk          (0xFFFFUL << HSEM_CR_KEY_Pos)                 /*!< 0xFFFF0000 */
 #define HSEM_CR_KEY              HSEM_CR_KEY_Msk                               /*!<semaphores clear key. */
@@ -9092,100 +9017,100 @@ typedef struct
 /*****************  Bit definition for SYSCFG_SWPR register  (SYSCFG SRAM2 write protection register) ***********************************************************/
 #define SYSCFG_SWPR_PAGE0_Pos                   (0U)
 #define SYSCFG_SWPR_PAGE0_Msk                   (0x1UL << SYSCFG_SWPR_PAGE0_Pos)                /*!< 0x00000001 */
-#define SYSCFG_SWPR_PAGE0                       SYSCFG_SWPR_PAGE0_Msk                           /*!< SRAM2 Write protection page 0 (0x20008000 – 0x200083FF)    */
+#define SYSCFG_SWPR_PAGE0                       SYSCFG_SWPR_PAGE0_Msk                           /*!< SRAM2 Write protection page 0 (0x20008000 ï¿½ 0x200083FF)    */
 #define SYSCFG_SWPR_PAGE1_Pos                   (1U)
 #define SYSCFG_SWPR_PAGE1_Msk                   (0x1UL << SYSCFG_SWPR_PAGE1_Pos)                /*!< 0x00000002 */
-#define SYSCFG_SWPR_PAGE1                       SYSCFG_SWPR_PAGE1_Msk                           /*!< SRAM2 Write protection page 1 (0x20008400 – 0x200087FF)    */
+#define SYSCFG_SWPR_PAGE1                       SYSCFG_SWPR_PAGE1_Msk                           /*!< SRAM2 Write protection page 1 (0x20008400 ï¿½ 0x200087FF)    */
 #define SYSCFG_SWPR_PAGE2_Pos                   (2U)
 #define SYSCFG_SWPR_PAGE2_Msk                   (0x1UL << SYSCFG_SWPR_PAGE2_Pos)                /*!< 0x00000004 */
-#define SYSCFG_SWPR_PAGE2                       SYSCFG_SWPR_PAGE2_Msk                           /*!< SRAM2 Write protection page 2 (0x20008800 – 0x20008BFF)    */
+#define SYSCFG_SWPR_PAGE2                       SYSCFG_SWPR_PAGE2_Msk                           /*!< SRAM2 Write protection page 2 (0x20008800 ï¿½ 0x20008BFF)    */
 #define SYSCFG_SWPR_PAGE3_Pos                   (3U)
 #define SYSCFG_SWPR_PAGE3_Msk                   (0x1UL << SYSCFG_SWPR_PAGE3_Pos)                /*!< 0x00000008 */
-#define SYSCFG_SWPR_PAGE3                       SYSCFG_SWPR_PAGE3_Msk                           /*!< SRAM2 Write protection page 3 (0x20008C00 – 0x20008FFF)    */
+#define SYSCFG_SWPR_PAGE3                       SYSCFG_SWPR_PAGE3_Msk                           /*!< SRAM2 Write protection page 3 (0x20008C00 ï¿½ 0x20008FFF)    */
 #define SYSCFG_SWPR_PAGE4_Pos                   (4U)
 #define SYSCFG_SWPR_PAGE4_Msk                   (0x1UL << SYSCFG_SWPR_PAGE4_Pos)                /*!< 0x00000010 */
-#define SYSCFG_SWPR_PAGE4                       SYSCFG_SWPR_PAGE4_Msk                           /*!< SRAM2 Write protection page 4 (0x20009000 – 0x200093FF)    */
+#define SYSCFG_SWPR_PAGE4                       SYSCFG_SWPR_PAGE4_Msk                           /*!< SRAM2 Write protection page 4 (0x20009000 ï¿½ 0x200093FF)    */
 #define SYSCFG_SWPR_PAGE5_Pos                   (5U)
 #define SYSCFG_SWPR_PAGE5_Msk                   (0x1UL << SYSCFG_SWPR_PAGE5_Pos)                /*!< 0x00000020 */
-#define SYSCFG_SWPR_PAGE5                       SYSCFG_SWPR_PAGE5_Msk                           /*!< SRAM2 Write protection page 5 (0x20009400 – 0x200097FF)    */
+#define SYSCFG_SWPR_PAGE5                       SYSCFG_SWPR_PAGE5_Msk                           /*!< SRAM2 Write protection page 5 (0x20009400 ï¿½ 0x200097FF)    */
 #define SYSCFG_SWPR_PAGE6_Pos                   (6U)
 #define SYSCFG_SWPR_PAGE6_Msk                   (0x1UL << SYSCFG_SWPR_PAGE6_Pos)                /*!< 0x00000040 */
-#define SYSCFG_SWPR_PAGE6                       SYSCFG_SWPR_PAGE6_Msk                           /*!< SRAM2 Write protection page 6 (0x20009800 – 0x20009BFF)    */
+#define SYSCFG_SWPR_PAGE6                       SYSCFG_SWPR_PAGE6_Msk                           /*!< SRAM2 Write protection page 6 (0x20009800 ï¿½ 0x20009BFF)    */
 #define SYSCFG_SWPR_PAGE7_Pos                   (7U)
 #define SYSCFG_SWPR_PAGE7_Msk                   (0x1UL << SYSCFG_SWPR_PAGE7_Pos)                /*!< 0x00000080 */
-#define SYSCFG_SWPR_PAGE7                       SYSCFG_SWPR_PAGE7_Msk                           /*!< SRAM2 Write protection page 7 (0x20009C00 – 0x20009FFF)    */
+#define SYSCFG_SWPR_PAGE7                       SYSCFG_SWPR_PAGE7_Msk                           /*!< SRAM2 Write protection page 7 (0x20009C00 ï¿½ 0x20009FFF)    */
 #define SYSCFG_SWPR_PAGE8_Pos                   (8U)
 #define SYSCFG_SWPR_PAGE8_Msk                   (0x1UL << SYSCFG_SWPR_PAGE8_Pos)                /*!< 0x00000100 */
-#define SYSCFG_SWPR_PAGE8                       SYSCFG_SWPR_PAGE8_Msk                           /*!< SRAM2 Write protection page 8 (0x2000A000 – 0x2000A3FF)    */
+#define SYSCFG_SWPR_PAGE8                       SYSCFG_SWPR_PAGE8_Msk                           /*!< SRAM2 Write protection page 8 (0x2000A000 ï¿½ 0x2000A3FF)    */
 #define SYSCFG_SWPR_PAGE9_Pos                   (9U)
 #define SYSCFG_SWPR_PAGE9_Msk                   (0x1UL << SYSCFG_SWPR_PAGE9_Pos)                /*!< 0x00000200 */
-#define SYSCFG_SWPR_PAGE9                       SYSCFG_SWPR_PAGE9_Msk                           /*!< SRAM2 Write protection page 9 (0x2000A400 – 0x2000A7FF)    */
+#define SYSCFG_SWPR_PAGE9                       SYSCFG_SWPR_PAGE9_Msk                           /*!< SRAM2 Write protection page 9 (0x2000A400 ï¿½ 0x2000A7FF)    */
 #define SYSCFG_SWPR_PAGE10_Pos                  (10U)
 #define SYSCFG_SWPR_PAGE10_Msk                  (0x1UL << SYSCFG_SWPR_PAGE10_Pos)               /*!< 0x00000400 */
-#define SYSCFG_SWPR_PAGE10                      SYSCFG_SWPR_PAGE10_Msk                          /*!< SRAM2 Write protection page 10 (0x2000A800 – 0x2000ABFF)   */
+#define SYSCFG_SWPR_PAGE10                      SYSCFG_SWPR_PAGE10_Msk                          /*!< SRAM2 Write protection page 10 (0x2000A800 ï¿½ 0x2000ABFF)   */
 #define SYSCFG_SWPR_PAGE11_Pos                  (11U)
 #define SYSCFG_SWPR_PAGE11_Msk                  (0x1UL << SYSCFG_SWPR_PAGE11_Pos)               /*!< 0x00000800 */
-#define SYSCFG_SWPR_PAGE11                      SYSCFG_SWPR_PAGE11_Msk                          /*!< SRAM2 Write protection page 11 (0x2000AC00 – 0x2000AFFF)   */
+#define SYSCFG_SWPR_PAGE11                      SYSCFG_SWPR_PAGE11_Msk                          /*!< SRAM2 Write protection page 11 (0x2000AC00 ï¿½ 0x2000AFFF)   */
 #define SYSCFG_SWPR_PAGE12_Pos                  (12U)
 #define SYSCFG_SWPR_PAGE12_Msk                  (0x1UL << SYSCFG_SWPR_PAGE12_Pos)               /*!< 0x00001000 */
-#define SYSCFG_SWPR_PAGE12                      SYSCFG_SWPR_PAGE12_Msk                          /*!< SRAM2 Write protection page 12 (0x2000B000 – 0x2000B3FF)   */
+#define SYSCFG_SWPR_PAGE12                      SYSCFG_SWPR_PAGE12_Msk                          /*!< SRAM2 Write protection page 12 (0x2000B000 ï¿½ 0x2000B3FF)   */
 #define SYSCFG_SWPR_PAGE13_Pos                  (13U)
 #define SYSCFG_SWPR_PAGE13_Msk                  (0x1UL << SYSCFG_SWPR_PAGE13_Pos)               /*!< 0x00002000 */
-#define SYSCFG_SWPR_PAGE13                      SYSCFG_SWPR_PAGE13_Msk                          /*!< SRAM2 Write protection page 13 (0x2000B400 – 0x2000B7FF)   */
+#define SYSCFG_SWPR_PAGE13                      SYSCFG_SWPR_PAGE13_Msk                          /*!< SRAM2 Write protection page 13 (0x2000B400 ï¿½ 0x2000B7FF)   */
 #define SYSCFG_SWPR_PAGE14_Pos                  (14U)
 #define SYSCFG_SWPR_PAGE14_Msk                  (0x1UL << SYSCFG_SWPR_PAGE14_Pos)               /*!< 0x00004000 */
-#define SYSCFG_SWPR_PAGE14                      SYSCFG_SWPR_PAGE14_Msk                          /*!< SRAM2 Write protection page 14 (0x2000B800 – 0x2000BBFF)   */
+#define SYSCFG_SWPR_PAGE14                      SYSCFG_SWPR_PAGE14_Msk                          /*!< SRAM2 Write protection page 14 (0x2000B800 ï¿½ 0x2000BBFF)   */
 #define SYSCFG_SWPR_PAGE15_Pos                  (15U)
 #define SYSCFG_SWPR_PAGE15_Msk                  (0x1UL << SYSCFG_SWPR_PAGE15_Pos)               /*!< 0x00008000 */
-#define SYSCFG_SWPR_PAGE15                      SYSCFG_SWPR_PAGE15_Msk                          /*!< SRAM2 Write protection page 15 (0x2000BC00 – 0x2000BFFF)   */
+#define SYSCFG_SWPR_PAGE15                      SYSCFG_SWPR_PAGE15_Msk                          /*!< SRAM2 Write protection page 15 (0x2000BC00 ï¿½ 0x2000BFFF)   */
 #define SYSCFG_SWPR_PAGE16_Pos                  (16U)
 #define SYSCFG_SWPR_PAGE16_Msk                  (0x1UL << SYSCFG_SWPR_PAGE16_Pos)               /*!< 0x00010000 */
-#define SYSCFG_SWPR_PAGE16                      SYSCFG_SWPR_PAGE16_Msk                          /*!< SRAM2 Write protection page 16 (0x2000C000 – 0x2000C3FF)   */
+#define SYSCFG_SWPR_PAGE16                      SYSCFG_SWPR_PAGE16_Msk                          /*!< SRAM2 Write protection page 16 (0x2000C000 ï¿½ 0x2000C3FF)   */
 #define SYSCFG_SWPR_PAGE17_Pos                  (17U)
 #define SYSCFG_SWPR_PAGE17_Msk                  (0x1UL << SYSCFG_SWPR_PAGE17_Pos)               /*!< 0x00020000 */
-#define SYSCFG_SWPR_PAGE17                      SYSCFG_SWPR_PAGE17_Msk                          /*!< SRAM2 Write protection page 17 (0x2000C400 – 0x2000C7FF)   */
+#define SYSCFG_SWPR_PAGE17                      SYSCFG_SWPR_PAGE17_Msk                          /*!< SRAM2 Write protection page 17 (0x2000C400 ï¿½ 0x2000C7FF)   */
 #define SYSCFG_SWPR_PAGE18_Pos                  (18U)
 #define SYSCFG_SWPR_PAGE18_Msk                  (0x1UL << SYSCFG_SWPR_PAGE18_Pos)               /*!< 0x00040000 */
-#define SYSCFG_SWPR_PAGE18                      SYSCFG_SWPR_PAGE18_Msk                          /*!< SRAM2 Write protection page 18 (0x2000C800 – 0x2000CBFF)   */
+#define SYSCFG_SWPR_PAGE18                      SYSCFG_SWPR_PAGE18_Msk                          /*!< SRAM2 Write protection page 18 (0x2000C800 ï¿½ 0x2000CBFF)   */
 #define SYSCFG_SWPR_PAGE19_Pos                  (19U)
 #define SYSCFG_SWPR_PAGE19_Msk                  (0x1UL << SYSCFG_SWPR_PAGE19_Pos)               /*!< 0x00080000 */
-#define SYSCFG_SWPR_PAGE19                      SYSCFG_SWPR_PAGE19_Msk                          /*!< SRAM2 Write protection page 19 (0x2000CC00 – 0x2000CFFF)   */
+#define SYSCFG_SWPR_PAGE19                      SYSCFG_SWPR_PAGE19_Msk                          /*!< SRAM2 Write protection page 19 (0x2000CC00 ï¿½ 0x2000CFFF)   */
 #define SYSCFG_SWPR_PAGE20_Pos                  (20U)
 #define SYSCFG_SWPR_PAGE20_Msk                  (0x1UL << SYSCFG_SWPR_PAGE20_Pos)               /*!< 0x00100000 */
-#define SYSCFG_SWPR_PAGE20                      SYSCFG_SWPR_PAGE20_Msk                          /*!< SRAM2 Write protection page 20 (0x2000D000 – 0x2000D3FF)   */
+#define SYSCFG_SWPR_PAGE20                      SYSCFG_SWPR_PAGE20_Msk                          /*!< SRAM2 Write protection page 20 (0x2000D000 ï¿½ 0x2000D3FF)   */
 #define SYSCFG_SWPR_PAGE21_Pos                  (21U)
 #define SYSCFG_SWPR_PAGE21_Msk                  (0x1UL << SYSCFG_SWPR_PAGE21_Pos)               /*!< 0x00200000 */
-#define SYSCFG_SWPR_PAGE21                      SYSCFG_SWPR_PAGE21_Msk                          /*!< SRAM2 Write protection page 21 (0x2000D400 – 0x2000D7FF)   */
+#define SYSCFG_SWPR_PAGE21                      SYSCFG_SWPR_PAGE21_Msk                          /*!< SRAM2 Write protection page 21 (0x2000D400 ï¿½ 0x2000D7FF)   */
 #define SYSCFG_SWPR_PAGE22_Pos                  (22U)
 #define SYSCFG_SWPR_PAGE22_Msk                  (0x1UL << SYSCFG_SWPR_PAGE22_Pos)               /*!< 0x00400000 */
-#define SYSCFG_SWPR_PAGE22                      SYSCFG_SWPR_PAGE22_Msk                          /*!< SRAM2 Write protection page 22 (0x2000D800 – 0x2000DBFF)   */
+#define SYSCFG_SWPR_PAGE22                      SYSCFG_SWPR_PAGE22_Msk                          /*!< SRAM2 Write protection page 22 (0x2000D800 ï¿½ 0x2000DBFF)   */
 #define SYSCFG_SWPR_PAGE23_Pos                  (23U)
 #define SYSCFG_SWPR_PAGE23_Msk                  (0x1UL << SYSCFG_SWPR_PAGE23_Pos)               /*!< 0x00800000 */
-#define SYSCFG_SWPR_PAGE23                      SYSCFG_SWPR_PAGE23_Msk                          /*!< SRAM2 Write protection page 23 (0x2000DC00 – 0x2000DFFF)   */
+#define SYSCFG_SWPR_PAGE23                      SYSCFG_SWPR_PAGE23_Msk                          /*!< SRAM2 Write protection page 23 (0x2000DC00 ï¿½ 0x2000DFFF)   */
 #define SYSCFG_SWPR_PAGE24_Pos                  (24U)
 #define SYSCFG_SWPR_PAGE24_Msk                  (0x1UL << SYSCFG_SWPR_PAGE24_Pos)               /*!< 0x01000000 */
-#define SYSCFG_SWPR_PAGE24                      SYSCFG_SWPR_PAGE24_Msk                          /*!< SRAM2 Write protection page 24 (0x2000E000 – 0x2000E3FF)   */
+#define SYSCFG_SWPR_PAGE24                      SYSCFG_SWPR_PAGE24_Msk                          /*!< SRAM2 Write protection page 24 (0x2000E000 ï¿½ 0x2000E3FF)   */
 #define SYSCFG_SWPR_PAGE25_Pos                  (25U)
 #define SYSCFG_SWPR_PAGE25_Msk                  (0x1UL << SYSCFG_SWPR_PAGE25_Pos)               /*!< 0x02000000 */
-#define SYSCFG_SWPR_PAGE25                      SYSCFG_SWPR_PAGE25_Msk                          /*!< SRAM2 Write protection page 25 (0x2000E400 – 0x2000E7FF)   */
+#define SYSCFG_SWPR_PAGE25                      SYSCFG_SWPR_PAGE25_Msk                          /*!< SRAM2 Write protection page 25 (0x2000E400 ï¿½ 0x2000E7FF)   */
 #define SYSCFG_SWPR_PAGE26_Pos                  (26U)
 #define SYSCFG_SWPR_PAGE26_Msk                  (0x1UL << SYSCFG_SWPR_PAGE26_Pos)               /*!< 0x04000000 */
-#define SYSCFG_SWPR_PAGE26                      SYSCFG_SWPR_PAGE26_Msk                          /*!< SRAM2 Write protection page 26 (0x2000E800 – 0x2000EBFF)   */
+#define SYSCFG_SWPR_PAGE26                      SYSCFG_SWPR_PAGE26_Msk                          /*!< SRAM2 Write protection page 26 (0x2000E800 ï¿½ 0x2000EBFF)   */
 #define SYSCFG_SWPR_PAGE27_Pos                  (27U)
 #define SYSCFG_SWPR_PAGE27_Msk                  (0x1UL << SYSCFG_SWPR_PAGE27_Pos)               /*!< 0x08000000 */
-#define SYSCFG_SWPR_PAGE27                      SYSCFG_SWPR_PAGE27_Msk                          /*!< SRAM2 Write protection page 27 (0x2000EC00 – 0x2000EFFF)   */
+#define SYSCFG_SWPR_PAGE27                      SYSCFG_SWPR_PAGE27_Msk                          /*!< SRAM2 Write protection page 27 (0x2000EC00 ï¿½ 0x2000EFFF)   */
 #define SYSCFG_SWPR_PAGE28_Pos                  (28U)
 #define SYSCFG_SWPR_PAGE28_Msk                  (0x1UL << SYSCFG_SWPR_PAGE28_Pos)               /*!< 0x10000000 */
-#define SYSCFG_SWPR_PAGE28                      SYSCFG_SWPR_PAGE28_Msk                          /*!< SRAM2 Write protection page 28 (0x2000F000 – 0x2000F3FF)   */
+#define SYSCFG_SWPR_PAGE28                      SYSCFG_SWPR_PAGE28_Msk                          /*!< SRAM2 Write protection page 28 (0x2000F000 ï¿½ 0x2000F3FF)   */
 #define SYSCFG_SWPR_PAGE29_Pos                  (29U)
 #define SYSCFG_SWPR_PAGE29_Msk                  (0x1UL << SYSCFG_SWPR_PAGE29_Pos)               /*!< 0x20000000 */
-#define SYSCFG_SWPR_PAGE29                      SYSCFG_SWPR_PAGE29_Msk                          /*!< SRAM2 Write protection page 29 (0x2000F400 – 0x2000F7FF)   */
+#define SYSCFG_SWPR_PAGE29                      SYSCFG_SWPR_PAGE29_Msk                          /*!< SRAM2 Write protection page 29 (0x2000F400 ï¿½ 0x2000F7FF)   */
 #define SYSCFG_SWPR_PAGE30_Pos                  (30U)
 #define SYSCFG_SWPR_PAGE30_Msk                  (0x1UL << SYSCFG_SWPR_PAGE30_Pos)               /*!< 0x40000000 */
-#define SYSCFG_SWPR_PAGE30                      SYSCFG_SWPR_PAGE30_Msk                          /*!< SRAM2 Write protection page 30 (0x2000F800 – 0x2000FBFF)   */
+#define SYSCFG_SWPR_PAGE30                      SYSCFG_SWPR_PAGE30_Msk                          /*!< SRAM2 Write protection page 30 (0x2000F800 ï¿½ 0x2000FBFF)   */
 #define SYSCFG_SWPR_PAGE31_Pos                  (31U)
 #define SYSCFG_SWPR_PAGE31_Msk                  (0x1UL << SYSCFG_SWPR_PAGE31_Pos)               /*!< 0x80000000 */
-#define SYSCFG_SWPR_PAGE31                      SYSCFG_SWPR_PAGE31_Msk                          /*!< SRAM2 Write protection page 31 (0x2000FC00 – 0x2000FFFF)   */
+#define SYSCFG_SWPR_PAGE31                      SYSCFG_SWPR_PAGE31_Msk                          /*!< SRAM2 Write protection page 31 (0x2000FC00 ï¿½ 0x2000FFFF)   */
 
 /*****************  Bit definition for SYSCFG_SKR register  (SYSCFG SRAM2 key register) *************************************************************************/
 #define SYSCFG_SKR_KEY_Pos                      (0U)
@@ -10099,8 +10024,7 @@ typedef struct
 #define WWDG_SR_EWIF            WWDG_SR_EWIF_Msk                               /*!<Early Wakeup Interrupt Flag */
 
 
-#if defined(CORE_CM0PLUS)
-#else
+
 /******************************************************************************/
 /*                                                                            */
 /*                                Debug MCU                                   */
@@ -10212,7 +10136,6 @@ typedef struct
 #define DBGMCU_C2APB2FZR_DBG_TIM17_STOP_Msk               (0x1UL << DBGMCU_C2APB2FZR_DBG_TIM17_STOP_Pos)/*!< 0x00040000 */
 #define DBGMCU_C2APB2FZR_DBG_TIM17_STOP                   DBGMCU_C2APB2FZR_DBG_TIM17_STOP_Msk
 
-#endif
 
 /******************************************************************************/
 /*                                                                            */
